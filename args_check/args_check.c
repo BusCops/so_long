@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:54:59 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/01 19:00:16 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:10:28 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,25 @@ void	check_args_number2(int ac)
 {
 	if (ac > 2)
 	{
-		write(2, "\n  🔥 CRITICAL ERROR: TOO MANY ARGUMENTS 🔥\n", 48);
-		write(2, "===========================================\n", 44);
-		write(2, "  😱 The game can only handle one map! 😱\n", 46);
-		write(2, "===========================================\n", 44);
-		write(2, "    🔍 Searching for the extra map...\n", 40);
-		write(2, "  ❌ Even the game is confused now.\n", 37);
-		write(2, "  ❌ More than one map? The chaos! 🤯\n", 41);
-		write(2, "  ❌ The program can’t process this many.\n", 45);
-		write(2, "===========================================\n", 44);
-		write(2, "            ⚠️ Possible Causes:\n", 36);
-		write(2, "  - You’re trying to break the game. 💥\n", 44);
-		write(2, "  - You love maps too much. 🗺️❤️\n", 42);
-		write(2, "  - The game is overwhelmed by choice. 😵\n", 44);
-		write(2, "===========================================\n", 44);
-		write(2, "            🚀 Suggested Fixes:\n", 34);
-		write(2, "  - Only one map, please. 🙏\n", 31);
-		write(2, "  - Remove the extra maps. 🗑️\n", 35);
-		write(2, "  - Restart and try again with ONE map. 🔄\n", 45);
-		write(2, "===========================================\n", 44);
+		write(2, "\n\033[1;31m  🔥 CRITICAL ERROR: TOO MANY ARGUMENTS 🔥\033[0m\n", 59);
+		write(2, "\033[1;33m===========================================\033[0m\n", 55);
+		write(2, "\033[1;31m  😱 The game can only handle one map! 😱\033[0m\n", 64);
+		write(2, "\033[1;33m===========================================\033[0m\n", 55);
+		write(2, "\033[1;34m    🔍 Searching for the extra map...\033[0m\n", 51);
+		write(2, "\033[1;31m  ❌ Even the game is confused now.\033[0m\n", 48);
+		write(2, "\033[1;31m  ❌ More than one map? The chaos! 🤯\033[0m\n", 52);
+		write(2, "\033[1;31m❌ The program can’t process this many.\033[0m\n", 50);
+		write(2, "\033[1;33m===========================================\033[0m\n", 49);
+		write(2, "\033[1;35m⚠️ Possible Causes:\033[0m\n", 34);
+		write(2, "\033[1;35m- You’re trying to break the game. 💥\033[0m\n", 49);
+		write(2, "\033[1;35m- You love maps too much. 🗺️❤️\033[0m\n", 47);
+		write(2, "\033[1;35m- The game is overwhelmed by choice. 😵\033[0m\n", 49);
+		write(2, "\033[1;33m===========================================\033[0m\n", 49);
+		write(2, "\033[1;32m🚀 Suggested Fixes:\033[0m\n", 31);
+		write(2, "\033[1;32m- Only one map, please. 🙏\033[0m\n", 36);
+		write(2, "\033[1;32m- Remove the extra maps. 🗑️\033[0m\n", 40);
+		write(2, "\033[1;32m- Restart and try again with ONE map. 🔄\033[0m\n", 50);
+		write(2, "\033[1;33m===========================================\033[0m\n", 49);
 		exit(1);
 	}
 }
