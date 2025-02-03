@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/03 16:09:39 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:19:44 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ typedef struct s_list
 {
 	char			*str;
 	struct s_list	*next;
-}t_list;
+}	t_list;
 
 //helper function
 
 void	ft_putstr(int fd, char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+void	ft_free(char **str);
 t_list	*ft_lstnew(char *str);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
