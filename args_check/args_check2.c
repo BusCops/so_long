@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:02:25 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/03 17:20:00 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:01:47 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**fill_array(t_list **list)
 
 	i = 0;
 	start = *list;
-	str = (char **)malloc(sizeof(char *) * ft_lstsize(*list) + 1);
+	str = (char **)malloc(sizeof(char *) * (ft_lstsize(*list) + 1));
 	if (!str)
 		return (NULL);
 	while (*list)
@@ -57,10 +57,97 @@ char	**get_the_content_of_the_map(char **av)
 	return (fill_array(&map));
 }
 
-void	check_map_valid_chape_and_content(char **av)
+void	number_of_exit_and_players(int e, int p, char **map)
+{
+	if (e == 0)
+	{
+		ft_putstr(2, "🚨 WHERE IS THE EXIT 🚪?!!\n");
+		ft_putstr(2, "I guess I’ll just use the vent... 😩\n");
+		ft_free(map);
+		exit (1);
+	}
+	if (e > 1)
+	{
+		ft_putstr(2, "😱 I'm panicking! Which door should I choose...?\n");
+		ft_free(map);
+		exit (1);
+	}
+	if (p == 0)
+	{
+		ft_putstr(2, "Is it too much to ask for a living hero? 🤷\n");
+		ft_free(map);
+		exit (1);
+	}
+	if (p > 1)
+	{
+		ft_putstr(2, "❌ This is NOT a multiplayer game! ❌\n");
+		ft_free(map);
+		exit (1);
+	}
+}
+
+void	check_invalid_characters(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'P'
+				&& map[i][j] != 'E' && map[i][j] != 'C' && map[i][j] != '\n')
+			{
+				ft_putstr(2, "👽 What are those... ALIENS!? 👾\n");
+				ft_putstr(2, "Invalid characters found! 😱\n");
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	check_player_and_exit(int *e, int *p, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	*p = 0;
+	*e = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'P')
+				(*p)++;
+			if (map[i][j] == 'E')
+				(*e)++;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	check_character(char **map)
+{
+	int	e;
+	int	p;
+
+	check_invalid_characters(map);
+	check_player_and_exit(&e, &p, map);
+	number_of_exit_and_players(e, p, map);
+}
+
+void	check_map_valid_shape_and_content(char **av)
 {
 	char	**map;
 
 	map = get_the_content_of_the_map(av);
-	ft_free(map);
+	check_character(map);
+	//check_shape()
 }

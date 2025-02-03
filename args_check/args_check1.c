@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:54:59 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/03 15:30:02 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:57:09 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	check_if_valid_extension(char **av)
 void	check_map_if_valid(char **av)
 {
 	check_if_valid_extension(av);
-	check_map_valid_chape_and_content(av);
+	check_map_valid_shape_and_content(av);
 }
 
 void	args_checker(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/03 17:19:44 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:56:57 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	free_linked_list(t_list **lst);
 //args checkers
 
 void	args_checker(int ac, char **av);
-void	check_map_valid_chape_and_content(char **av);
+void	check_map_valid_shape_and_content(char **av);
 
 #endif
