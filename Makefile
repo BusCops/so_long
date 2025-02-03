@@ -6,7 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
 
-SRCS = args_check/args_check.c main/so_long.c utils/helper_function.c
+SRCS = get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c \
+args_check/args_check1.c args_check/args_check2.c main/so_long.c utils/helper_function.c
 
 OBJS = ${SRCS:.c=.o}
 
