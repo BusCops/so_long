@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
 
-SRCS = get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c \
+SRCS = ft_get_next_line/get_next_line.c  ft_get_next_line/get_next_line_utils.c \
 utils/helper_function1.c utils/helper_function2.c\
 args_check/args_check1.c args_check/args_check2.c args_check/args_check3.c args_check/args_check4.c\
 main/so_long.c 
