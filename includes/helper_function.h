@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   helper_function.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/04 13:19:50 by abenzaho         ###   ########.fr       */
+/*   Created: 2025/02/04 13:17:49 by abenzaho          #+#    #+#             */
+/*   Updated: 2025/02/04 14:27:25 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef HELPER_FUNCTION_H
+# define HELPER_FUNCTION_H
 
-# define RED "\033[1;31m"
-# define YELLOW "\033[1;33m"
-# define RESET "\033[0m"
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include "../get_next_line/get_next_line.h"
 # include "../includes/so_long_args_check.h"
-# include "../includes/helper_function.h"
+
+void	ft_putstr(int fd, char *str);
+int		ft_strcmp(const char *s1, const char *s2);
+void	ft_free(char **str);
+t_list	*ft_lstnew(char *str);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+int		ft_lstsize(t_list *lst);
+void	free_linked_list(t_list **lst);
+int		ft_pointer_counter(char **str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:02:25 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/03 19:01:47 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:46:44 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	check_invalid_characters(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'P'
-				&& map[i][j] != 'E' && map[i][j] != 'C' && map[i][j] != '\n')
+				&& map[i][j] != 'E' && map[i][j] != 'C')
 			{
 				ft_putstr(2, "👽 What are those... ALIENS!? 👾\n");
 				ft_putstr(2, "Invalid characters found! 😱\n");
@@ -110,14 +110,12 @@ void	check_invalid_characters(char **map)
 	}
 }
 
-void	check_player_and_exit(int *e, int *p, char **map)
+void	check_player_and_exit(int *c, int *e, int *p, char **map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	*p = 0;
-	*e = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -127,27 +125,10 @@ void	check_player_and_exit(int *e, int *p, char **map)
 				(*p)++;
 			if (map[i][j] == 'E')
 				(*e)++;
+			if (map[i][j] == 'C')
+				(*c)++;
 			j++;
 		}
 		i++;
 	}
-}
-
-void	check_character(char **map)
-{
-	int	e;
-	int	p;
-
-	check_invalid_characters(map);
-	check_player_and_exit(&e, &p, map);
-	number_of_exit_and_players(e, p, map);
-}
-
-void	check_map_valid_shape_and_content(char **av)
-{
-	char	**map;
-
-	map = get_the_content_of_the_map(av);
-	check_character(map);
-	//check_shape()
 }
