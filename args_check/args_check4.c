@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:51:13 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/04 14:34:10 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:21:00 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,48 @@ void	check_walls(char **map)
 			wrong_walls(map);
 		i++;
 	}
+}
+
+void	calculate_c_and_e(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	map->c = 0;
+	map->e = 0;
+	while (map->map[i])
+	{
+		j = 0;
+		while (map->map[i][j])
+		{
+			if (map->map[i][j] == 'P')
+			{
+				map->xp = i;
+				map->yp = j;
+			}
+			if (map->map[i][j] == 'E')
+				map->e++;
+			if (map->map[i][j] == 'C')
+				map->c++;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	check_if_the_exit_collectibles_reachable(char **map)
+{
+	char	**tmp;
+	t_map	tmp1;
+
+	tmp = copy_double_pointer_array(map);
+	if (!tmp)
+		return (ft_free(map));
+	tmp1.map = tmp;
+	calculate_c_and_e(&tmp1);
+	flood_fill_bfs(tmp1.xp, tmp1.yp, &tmp1);
+	if (tmp1.e != 0 || tmp1.c != 0)
+		unreachable_error(tmp, map);
+	ft_free(tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:07:42 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/04 14:34:06 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:19:08 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,17 @@ void	check_map_valid_shape_and_content(char **av)
 	char	**map;
 
 	map = get_the_content_of_the_map(av);
+	if (!map)
+		exit(1);
 	remove_new_line(map);
 	check_character(map);
 	check_shape(map);
 	check_walls(map);
+	check_if_the_exit_collectibles_reachable(map);
+	if (!map)
+	{
+		ft_putstr(2, "Error : Allocation fail\n");
+		exit(1);
+	}
+	ft_free(map);
 }

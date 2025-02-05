@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:17:49 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/04 14:27:25 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:42:41 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 void	free_linked_list(t_list **lst);
 int		ft_pointer_counter(char **str);
+char	**copy_double_pointer_array(char **str);
+char	*ft_copy1(const char *src);
 
 #endif

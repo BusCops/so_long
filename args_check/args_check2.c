@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:02:25 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/04 13:46:44 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:12:58 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**fill_array(t_list **list)
 	start = *list;
 	str = (char **)malloc(sizeof(char *) * (ft_lstsize(*list) + 1));
 	if (!str)
-		return (NULL);
+		return (free_linked_list(list), NULL);
 	while (*list)
 	{
 		str[i] = (*list)->str;

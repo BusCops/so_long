@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:11:21 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/04 14:30:26 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:20:49 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ void	check_shape(char **map);
 void	wrong_shape(char **map);
 void	check_walls(char **map);
 void	wrong_walls(char **map);
+void	check_if_the_exit_collectibles_reachable(char **map);
+void	flood_fill_bfs(int x, int y, t_map *tmp);
+void	ff_bfs(int x, int y, t_map *tmp);
+void	calculate_c_and_e(t_map *map);
+void	unreachable_error(char **tmp, char **map);
 
 #endif
