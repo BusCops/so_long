@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:11:21 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/05 15:20:49 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:22:40 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ typedef struct s_list
 	char			*str;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_map
+{
+	int		c;
+	int		e;
+	int		xp;
+	int		yp;
+	char	**map;
+}	t_map;
 
 void	check_args_number1(int ac);
 void	check_args_number2(int ac);
