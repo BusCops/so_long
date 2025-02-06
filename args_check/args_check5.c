@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:15:30 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/05 15:21:15 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:39:38 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	unreachable_error(char **tmp, char **map)
 	ft_putstr(2, "========================================\n");
 	ft_free(tmp);
 	ft_free(map);
+	exit(1);
 }

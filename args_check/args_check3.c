@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:07:42 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/05 15:19:08 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:19:40 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	check_character(char **map)
 	number_of_collectibles(c, map);
 }
 
-void	check_map_valid_shape_and_content(char **av)
+char	**check_map_valid_shape_and_content(char **av)
 {
 	char	**map;
 
@@ -99,5 +99,5 @@ void	check_map_valid_shape_and_content(char **av)
 		ft_putstr(2, "Error : Allocation fail\n");
 		exit(1);
 	}
-	ft_free(map);
+	return (map);
 }

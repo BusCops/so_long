@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/05 15:22:44 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:00:29 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <mlx.h>
 # include "../ft_get_next_line/get_next_line.h"
 # include "../includes/so_long_args_check.h"
 # include "../includes/helper_function.h"
