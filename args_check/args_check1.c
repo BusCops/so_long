@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:54:59 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/05 17:21:10 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:05:10 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,16 @@ void	check_if_valid_extension(char **av)
 	}
 }
 
-void	args_checker(int ac, char **av)
+t_map	*args_checker(int ac, char **av)
 {
-	char	**map;
+	char	**s;
+	t_map	*map;
 	
 	check_args_number1(ac);
 	check_args_number2(ac);
 	check_if_valid_extension(av);
-	map = check_map_valid_shape_and_content(av);
-	ft_free(map);
+	s = check_map_valid_shape_and_content(av);
+	map = (t_map *)malloc(sizeof(t_map));
+	map->map = s;
+	return (map);
 }

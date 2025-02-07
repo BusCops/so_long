@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:11:21 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/05 17:17:16 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:38:08 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ typedef struct s_list
 	char			*str;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_img
+{
+	void	*wall;
+	void	*player;
+	void	*path;
+	void	*enemy;
+	void	*exit;
+	void	*open;
+}	t_img;
 
 typedef struct s_map
 {
@@ -31,7 +41,7 @@ typedef struct s_map
 void	check_args_number1(int ac);
 void	check_args_number2(int ac);
 void	check_if_valid_extension(char **av);
-void	args_checker(int ac, char **av);
+t_map	*args_checker(int ac, char **av);
 char	**check_map_valid_shape_and_content(char **av);
 void	check_character(char **map);
 void	check_player_and_exit(int *c, int *e, int *p, char **map);

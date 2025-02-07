@@ -4,6 +4,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
+MLXFLAGS = -lmlx -lXext -lX11 -lm
+
 RM = rm -rf
 
 SRCS = ft_get_next_line/get_next_line.c  ft_get_next_line/get_next_line_utils.c \
@@ -16,7 +18,7 @@ OBJS = ${SRCS:.c=.o}
 all: ${NAME}
 
 ${NAME} : ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJS} ${MLXFLAGS} -o ${NAME}
 
 clean :
 	${RM} ${OBJS}
