@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/06 15:00:29 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:21:31 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,24 @@
 # include "../ft_get_next_line/get_next_line.h"
 # include "../includes/so_long_args_check.h"
 # include "../includes/helper_function.h"
+
+typedef struct s_img
+{
+	void	**walls;
+	void	*player;
+	void	**ground;
+	void	*enemy;
+	void	*exit;
+	void	*open;
+}	t_img;
+
+typedef struct s_game
+{
+	t_img	*imgs;
+	t_map	*map;
+}	t_game;
+
+void	walls(int img_scale, void *mlx, t_img *imgs);
+void	put_walls(void *mlx, void *win, t_map *map, t_img *imgs);
 
 #endif

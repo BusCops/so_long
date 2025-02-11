@@ -11,14 +11,15 @@ RM = rm -rf
 SRCS = ft_get_next_line/get_next_line.c  ft_get_next_line/get_next_line_utils.c \
 utils/helper_function1.c utils/helper_function2.c utils/helper_function3.c \
 args_check/args_check1.c args_check/args_check2.c args_check/args_check3.c args_check/args_check4.c args_check/args_check5.c \
-main/so_long.c 
+main/so_long.c \
+so_long_utils/so_long_util1.c
 
 OBJS = ${SRCS:.c=.o}
 
 all: ${NAME}
 
-${NAME} : ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} ${MLXFLAGS} -o ${NAME}
+${NAME} : ${SRCS}
+	${CC} ${CFLAGS} ${SRCS} ${MLXFLAGS} -o ${NAME}
 
 clean :
 	${RM} ${OBJS}
