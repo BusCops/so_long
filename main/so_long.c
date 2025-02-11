@@ -6,11 +6,13 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/11 18:58:50 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:44:02 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+t_gc	*garcol;
 
 void	turn_the_display_on(void *mlx, t_game *game)
 {
@@ -43,6 +45,7 @@ int	main(int ac, char **av)
 	
 	//game = (t_game *)malloc(sizeof(t_game));
 	map = args_checker(ac, av);
+	
 	game = (t_game *)malloc(sizeof(t_game));
 	game->map = map;
 	mlx = mlx_init();

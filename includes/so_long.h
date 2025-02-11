@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/11 18:21:31 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:42:51 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ typedef struct s_game
 	t_img	*imgs;
 	t_map	*map;
 }	t_game;
+
+typedef struct s_gc
+{
+	void	*p;
+	struct s_gc	*next;
+}	t_gc;
 
 void	walls(int img_scale, void *mlx, t_img *imgs);
 void	put_walls(void *mlx, void *win, t_map *map, t_img *imgs);
