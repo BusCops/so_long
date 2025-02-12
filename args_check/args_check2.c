@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:02:25 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/11 19:05:36 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:42:29 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	check_invalid_characters(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'P'
-				&& map[i][j] != 'E' && map[i][j] != 'C')
+				&& map[i][j] != 'E' && map[i][j] != 'C' && map[i][j] != 'W')
 			{
 				ft_putstr(2, "👽 What are those... ALIENS!? 👾\n");
 				ft_putstr(2, "Invalid characters found! 😱\n");
