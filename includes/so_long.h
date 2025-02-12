@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/12 14:33:55 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:21:41 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ typedef struct s_vars
 	void	*win;
 }	t_vars;
 
-void	walls(int img_scale, void *mlx, t_img *imgs);
-void	put_walls(void *mlx, void *win, t_map *map, t_img *imgs);
-int		key_event(int keycode, t_vars *mlxvar);
+void	save_imgs(int img_scale, t_img *imgs, void *mlx);
+void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
+void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);
+int		key_event(int keycode, t_vars *mlxvar, t_game *game);
+void	mlx_error(t_game *game, t_vars *mlxvar);
 
 #endif

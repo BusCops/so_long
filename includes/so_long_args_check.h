@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:11:21 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/11 16:58:59 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:49:56 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_map
 	int		e;
 	int		xp;
 	int		yp;
+	int		col;
+	int		row;
 	char	**map;
 }	t_map;
 
