@@ -6,12 +6,13 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:11:21 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/12 16:49:56 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:14:14 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_ARGS_CHECK_H
 # define SO_LONG_ARGS_CHECK_H
+
 
 typedef struct s_list
 {
@@ -33,7 +34,7 @@ typedef struct s_map
 void	check_args_number1(int ac);
 void	check_args_number2(int ac);
 void	check_if_valid_extension(char **av);
-t_map	*args_checker(int ac, char **av);
+t_map	args_checker(int ac, char **av);
 char	**check_map_valid_shape_and_content(char **av);
 void	check_character(char **map);
 void	check_player_and_exit(int *c, int *e, int *p, char **map);

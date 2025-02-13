@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/12 17:21:41 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:08:38 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "../includes/so_long_args_check.h"
 # include "../includes/helper_function.h"
 
-typedef struct s_img
+/*typedef struct t_img
 {
 	void	**walls;
 	void	*player;
@@ -38,20 +38,54 @@ typedef struct s_img
 
 typedef struct s_game
 {
-	t_img	*imgs;
-	t_map	*map;
+	void	*walls;
+	void	*player;
+	void	*ground;
+	void	*enemy;
+	void	*exit;
+	void	*open;
+}	t_game;
+*/
+
+typedef struct	s_walls
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}		t_walls;	
+
+typedef struct	s_ground
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}		t_ground;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	t_walls		walls;
+	t_ground	ground;
+	t_map		map;
 }	t_game;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-}	t_vars;
-
-void	save_imgs(int img_scale, t_img *imgs, void *mlx);
-void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
-void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);
-int		key_event(int keycode, t_vars *mlxvar, t_game *game);
-void	mlx_error(t_game *game, t_vars *mlxvar);
+void	mlx_error(t_game *game);
+void	win_error(t_game *game);
+void	img_error_w(t_game *game);
+void	img_error_g(t_game *game);
+void	lets_run_win_and_put_env(t_game *game);
+void	save_walls_img(t_game *game);
+void	save_ground_img(t_game *game);
+int		key_event(int keycode, t_game *game);
+// void	save_imgs(int img_scale, t_img *imgs, t_vars *mlx);
+// void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
+// void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);
+// int		key_event(int keycode, t_vars *mlxvar);
+// void	mlx_error(t_game *game, t_vars *mlxvar);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:07:42 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/11 19:04:04 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:47:05 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ void	check_shape(char **map)
 			wrong_shape(map);
 		i++;
 	}
-	if (size < i)
-		wrong_shape(map);
-	if (i < 4)
+	if (i < 4 && ft_strlen(map[0]) < 4)
 	{
 		wrong_shape(map);
 	}
