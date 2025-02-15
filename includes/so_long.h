@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/13 18:08:38 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:12:06 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct	s_walls
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}		t_walls;	
+}	t_walls;	
 
 typedef struct	s_ground
 {
@@ -63,25 +63,37 @@ typedef struct	s_ground
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}		t_ground;
+}	t_ground;
+
+typedef struct s_background
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_background;
+
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	t_walls		walls;
-	t_ground	ground;
-	t_map		map;
+	void			*mlx;
+	void			*win;
+	t_walls			walls;
+	t_ground		ground;
+	t_background	bg;
+	t_map			map;
 }	t_game;
 
-void	mlx_error(t_game *game);
-void	win_error(t_game *game);
-void	img_error_w(t_game *game);
-void	img_error_g(t_game *game);
+void	reset_all(t_game *game);
+void	free_all(t_game *game, int exit_stat);
 void	lets_run_win_and_put_env(t_game *game);
 void	save_walls_img(t_game *game);
 void	save_ground_img(t_game *game);
 int		key_event(int keycode, t_game *game);
+void	creat_image_and_fill(t_game *game);
+void	fill_image(t_game *game, char **map);
+void	fill_with_wall(t_game *game, int x, int y, t_map map);
 // void	save_imgs(int img_scale, t_img *imgs, t_vars *mlx);
 // void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
 // void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);

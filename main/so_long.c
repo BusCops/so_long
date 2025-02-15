@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/13 18:25:08 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:22:38 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ void	lets_run_win_and_put_env(t_game *game)
 {
 	game->win = mlx_new_window(game->mlx, game->map.col * 150, game->map.row * 150, "so_long");
 	if (!game->win)
-		win_error(game);
+	{
+		ft_putstr(2, RED "ERROR: Window failed! 🪟 Guess I'll live in the terminal now... 🤡" RESET);
+		free_all(game, 1);
+	}
 	save_walls_img(game);
 	save_ground_img(game);
-	//put_walls(game);
-	
+	creat_image_and_fill(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->bg.img, 0, 0);
 }
 
 int	main(int ac, char **av)
@@ -47,9 +50,13 @@ int	main(int ac, char **av)
 	t_game	game;
 	
 	game.map = args_checker(ac, av);
+	reset_all(&game);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		mlx_error(&game);
+	{
+		ft_putstr(2, "Error: MLX failed! 🖥️ Did the X server take a nap? 😴\n");
+		free_all(&game, 1);
+	}
 	lets_run_win_and_put_env(&game);
 	mlx_key_hook(game.win, key_event, &game);
 	mlx_loop(game.mlx);

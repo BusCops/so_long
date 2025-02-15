@@ -6,37 +6,23 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:05:22 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/13 19:01:11 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/15 13:54:34 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	img_error_g(t_game *game)
-{
-	ft_putstr(2, RED "ERROR: Ground image failed! 🌍 Guess you’re floating in the void now... 🕳️" RESET);
-	ft_free(game->map.map);
-	mlx_destroy_image(game->mlx, game->walls.img);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(1);
-}
-
 int	key_event(int keycode, t_game *game)
 {
 	if (keycode == 65307)
-	{
-		ft_free(game->map.map);
-		mlx_destroy_image(game->mlx, game->walls.img);
-		mlx_destroy_image(game->mlx, game->ground.img);
-		mlx_destroy_window(game->mlx, game->win);
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		exit(1);
-	}
+		free_all(game, 0);
 	return (0);
 }
+
+//void	creat_image_and_fill(t_game *game)
+//{
+	
+//}
 
 /*void	put_walls(char **map, void *mlx, int row, int col)
 {
