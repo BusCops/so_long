@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:49:41 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/15 16:33:49 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:00:41 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	fill_with_wall(t_game *game, int x, int y, t_map map)
 	char	*color;
 	
 	i = 0;
-	if(((!x && !y) || (!x && y == map.col) || (!y && x == map.row) || (y == map.col && x == map.row)))
+	if(((!y && !x) || (!y && x == map.col - 1) || (!x && y == map.row - 1) || (x == map.col - 1 && y == map.row - 1)))
 		k = 0;
 	else
 	{
@@ -97,14 +97,14 @@ void	fill_with_wall(t_game *game, int x, int y, t_map map)
 		else
 			k = 1;
 	}
-	while (i <= 150)
+	while (i < 150)
 	{
 		j = 0;
-		while(j <= 150)
+		while(j < 150)
 		{
-			pixel = game->bg.addr + (y * game->bg.line_length) + game->bg.line_length * i + (x * (game->bg.bits_per_pixel /8) * 150) + j * 4; 
+			pixel = game->bg.addr + game->bg.line_length *(y *  150 + i)  + (x * (game->bg.bits_per_pixel /8) * 150) + j * 4; 
 			color = game->walls.addr + (game->walls.line_length * i) + (k * 150 * 4) + j * 4;
-			*pixel = *color;
+			*(unsigned int *)pixel = *(unsigned int *)color;
 			j++;
 		}
 		i++;
