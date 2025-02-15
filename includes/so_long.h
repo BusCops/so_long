@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/15 15:12:06 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:08:01 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,28 @@ typedef struct s_game
 }	t_game;
 */
 
-typedef struct	s_walls
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		b_p;
+	int		len;
 	int		endian;
+}	t_img;
+
+typedef struct	s_walls
+{
+	t_img img;
 }	t_walls;	
 
 typedef struct	s_ground
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	t_img img;
 }	t_ground;
 
 typedef struct s_background
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	t_img img;
 }	t_background;
 
 
@@ -85,15 +82,18 @@ typedef struct s_game
 	t_map			map;
 }	t_game;
 
-void	reset_all(t_game *game);
-void	free_all(t_game *game, int exit_stat);
-void	lets_run_win_and_put_env(t_game *game);
-void	save_walls_img(t_game *game);
-void	save_ground_img(t_game *game);
-int		key_event(int keycode, t_game *game);
-void	creat_image_and_fill(t_game *game);
-void	fill_image(t_game *game, char **map);
-void	fill_with_wall(t_game *game, int x, int y, t_map map);
+void			reset_all(t_game *game);
+void			free_all(t_game *game, int exit_stat);
+void			lets_run_win_and_put_env(t_game *game);
+void			save_walls_img(t_game *game);
+void			save_ground_img(t_game *game);
+int				key_event(int keycode, t_game *game);
+void			creat_image_and_fill(t_game *game);
+void			fill_image(t_game *game, char **map);
+void			fill_with_wall(t_game *game, int x, int y, t_map map);
+unsigned int	get_color(t_img img, int x, int y);
+int				wich_wall(int x, int y, int col, int row);
+char			*get_pixel_in_bg(t_img img, int x, int y, int nmv);
 // void	save_imgs(int img_scale, t_img *imgs, t_vars *mlx);
 // void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
 // void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);

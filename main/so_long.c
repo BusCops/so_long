@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/15 15:22:38 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:12:42 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	lets_run_win_and_put_env(t_game *game)
 	save_walls_img(game);
 	save_ground_img(game);
 	creat_image_and_fill(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->bg.img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->bg.img.img, 0, 0);
 }
 
 int	main(int ac, char **av)
