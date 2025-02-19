@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:21:51 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/12 17:34:50 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:15:01 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,4 @@ int	ft_pointer_counter(char **str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-void	ft_free_void(void **str)
-{
-	int	i;
-
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i])
-		free(str[i++]);
-	free(str);
 }

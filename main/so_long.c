@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/15 18:12:42 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:46:14 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ void	lets_build_the_thing(t_game *game, t_vars *mlxvar)
  
 void	lets_run_win_and_put_env(t_game *game)
 {
+	save_walls_img(game);
+	save_ground_img(game);
+	creat_image_and_fill(game);
 	game->win = mlx_new_window(game->mlx, game->map.col * 150, game->map.row * 150, "so_long");
 	if (!game->win)
 	{
 		ft_putstr(2, RED "ERROR: Window failed! 🪟 Guess I'll live in the terminal now... 🤡" RESET);
 		free_all(game, 1);
 	}
-	save_walls_img(game);
-	save_ground_img(game);
-	creat_image_and_fill(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->bg.img.img, 0, 0);
+	get_and_put_coin(game);
 }
 
 int	main(int ac, char **av)

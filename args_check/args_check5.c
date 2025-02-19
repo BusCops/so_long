@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:15:30 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/12 13:55:30 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:37:36 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	flood_fill_bfs(int x, int y, t_map *tmp)
 		return ;
 	else if (tmp->map[x][y] == 'E')
 	{
+		tmp->map[x][y] = 'V';
 		tmp->e = 0;
+		ff_bfs(x, y, tmp);
 		return ;
 	}
 	else if (tmp->map[x][y] == 'C')
