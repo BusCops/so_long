@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:08:24 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:38:22 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:39:47 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	reset_all(t_game *game)
 {
+	game->count = 0;
 	game->walls.img.img = NULL;
 	game->bg.img.img = NULL;
 	game->ground.img.img = NULL;
 	game->coin.cpos = NULL;
 	game->coin.img.img = NULL;
 	game->coin.anim.img = NULL;
+	game->pl.anim.img = NULL;
+	game->pl.img.img = NULL;
 	game->mlx = NULL;
 	game->win = NULL;
 }
@@ -40,6 +43,10 @@ void	free_all(t_game *game, int exit_stat)
 		mlx_destroy_image(game->mlx, game->coin.anim.img);
 	if (game->coin.cpos)
 		free_coin_positions(game);
+	if (game->pl.img.img)
+		mlx_destroy_image(game->mlx, game->pl.img.img);
+	if (game->pl.anim.img)
+		mlx_destroy_image(game->mlx, game->pl.anim.img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)

@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:45:02 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:39:20 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # define RED "\033[1;31m"
 # define YELLOW "\033[1;33m"
 # define RESET "\033[0m"
+#define KEY_ESC 65307
+#define KEY_RIGHT 65363
+#define KEY_LEFT 65361
+#define KEY_DOWN 65364
+#define KEY_UP 65362
 
 # include <unistd.h>
 # include <stdio.h>
@@ -92,6 +97,22 @@ typedef struct s_coin
 	t_cpos	**cpos;
 }	t_coin;
 
+typedef struct s_player
+{
+	t_img	img;
+	t_img	anim;
+	int		x_p;
+	int		y_p;
+}	t_player;
+
+typedef struct s_enemy
+{
+	t_img	img;
+	t_img	anim;
+	int		x_e;
+	int		y_e;
+}	t_enemy;
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -99,8 +120,12 @@ typedef struct s_game
 	t_walls			walls;
 	t_ground		ground;
 	t_coin			coin;
+	t_player		pl;
+	t_enemy			en;
 	t_background	bg;
 	t_map			map;
+	int				moving[4];
+	int				count;
 }	t_game;
 
 void			reset_all(t_game *game);
@@ -121,6 +146,19 @@ void			get_and_put_coin(t_game *game);
 void			put_coin(t_game *game, char **map);
 void 			free_coin_positions(t_game *game);
 char			*get_pixel_from_image(t_img img, int x, int y);
+int				fill_coin(t_game *game);
+int				put_all(t_game *game);
+void			get_and_put_player(t_game *game);
+void			put_player(t_game *game, int frame);
+void			move_player_right(t_game *game);
+char			*get_pixel_in_bg_offset(t_img img, int x, int y, t_index in, int ofs);
+void			move_player_left(t_game *game);
+void			move_player_down(t_game *game);
+char			*get_pixel_in_bg_offset_u(t_img img, int x, int y, t_index in, int ofs);
+void			move_player_up(t_game *game);
+int key_press(int keycode, t_game *game);
+int key_release(int keycode, t_game *game);
+int game_loop(t_game *game);
 // void	save_imgs(int img_scale, t_img *imgs, t_vars *mlx);
 // void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
 // void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);

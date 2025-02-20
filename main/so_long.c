@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:46:14 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:39:32 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@ void	lets_run_win_and_put_env(t_game *game)
 	if (!game->win)
 	{
 		ft_putstr(2, RED "ERROR: Window failed! 🪟 Guess I'll live in the terminal now... 🤡" RESET);
-		free_all(game, 1);
+		free_all(game, 0);
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->bg.img.img, 0, 0);
 	get_and_put_coin(game);
+	get_and_put_player(game);
+	put_player(game, 0);
+	//mlx_loop_hook(game->mlx, put_all, game);
 }
 
 int	main(int ac, char **av)
@@ -59,7 +62,10 @@ int	main(int ac, char **av)
 		free_all(&game, 1);
 	}
 	lets_run_win_and_put_env(&game);
-	mlx_key_hook(game.win, key_event, &game);
+	game.moving[0] = game.moving[1] = game.moving[2] = game.moving[3] = 0;
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);    // Key press event
+    mlx_hook(game.win, 3, 1L << 1, key_release, &game);  // Key release event
+    mlx_loop_hook(game.mlx, game_loop, &game);          // Continuous update loop
 	mlx_loop(game.mlx);
 	return (0);
 }
