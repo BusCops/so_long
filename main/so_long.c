@@ -6,31 +6,12 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/20 17:39:32 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:01:31 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-/*void	turn_the_display_on(t_game *game, t_vars *mlxvar)
-{
-	mlxvar->win = mlx_new_window(mlxvar->mlx, ft_strlen(game->map->map[0]) * 150, ft_pointer_counter(game->map->map) * 150, "so_long");
-}
-
-void	put_walls_and_ground(t_game *game, t_vars *mlxvar)
-{
-	game->imgs = (t_img *)malloc(sizeof(t_img));
-	save_imgs(150, game->imgs, mlxvar);
-	start_puting_walls(game->map, game->imgs, mlxvar->mlx, mlxvar->win);
-	start_puting_ground(game->map, game->imgs, mlxvar->mlx, mlxvar->win);
-}
-
-void	lets_build_the_thing(t_game *game, t_vars *mlxvar)
-{
-	turn_the_display_on(game, mlxvar);
-	put_walls_and_ground(game, mlxvar);
-}*/
- 
 void	lets_run_win_and_put_env(t_game *game)
 {
 	save_walls_img(game);
@@ -44,9 +25,9 @@ void	lets_run_win_and_put_env(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->bg.img.img, 0, 0);
 	get_and_put_coin(game);
+	get_exit(game);
 	get_and_put_player(game);
 	put_player(game, 0);
-	//mlx_loop_hook(game->mlx, put_all, game);
 }
 
 int	main(int ac, char **av)
@@ -63,9 +44,9 @@ int	main(int ac, char **av)
 	}
 	lets_run_win_and_put_env(&game);
 	game.moving[0] = game.moving[1] = game.moving[2] = game.moving[3] = 0;
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game);    // Key press event
-    mlx_hook(game.win, 3, 1L << 1, key_release, &game);  // Key release event
-    mlx_loop_hook(game.mlx, game_loop, &game);          // Continuous update loop
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+    mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

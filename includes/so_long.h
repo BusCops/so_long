@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/20 17:39:20 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:35:28 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #define KEY_LEFT 65361
 #define KEY_DOWN 65364
 #define KEY_UP 65362
+#define SPEED 45000000
 
 # include <unistd.h>
 # include <stdio.h>
@@ -101,8 +102,6 @@ typedef struct s_player
 {
 	t_img	img;
 	t_img	anim;
-	int		x_p;
-	int		y_p;
 }	t_player;
 
 typedef struct s_enemy
@@ -112,6 +111,21 @@ typedef struct s_enemy
 	int		x_e;
 	int		y_e;
 }	t_enemy;
+
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+
+typedef struct s_exit
+{
+	t_img	img;
+	t_img	anim;
+	int		frame;
+	int		x;
+	int		y;
+}	t_exit;
 
 typedef struct s_game
 {
@@ -126,6 +140,11 @@ typedef struct s_game
 	t_map			map;
 	int				moving[4];
 	int				count;
+	t_pos			enp;
+	t_pos			plp;
+	int				frame;
+	int				cc;
+	t_exit			exit;
 }	t_game;
 
 void			reset_all(t_game *game);
@@ -156,9 +175,17 @@ void			move_player_left(t_game *game);
 void			move_player_down(t_game *game);
 char			*get_pixel_in_bg_offset_u(t_img img, int x, int y, t_index in, int ofs);
 void			move_player_up(t_game *game);
-int key_press(int keycode, t_game *game);
-int key_release(int keycode, t_game *game);
-int game_loop(t_game *game);
+int 			key_press(int keycode, t_game *game);
+int				key_release(int keycode, t_game *game);
+int 			game_loop(t_game *game);
+int 			update_game(int keycode, t_game *game);
+char			*get_pixel(t_img img, int x, int y);
+void			draw_player_moving(t_game *game, int x, int y,int p);
+
+void	custom_usleep();
+void	coin_founded(t_game *game, int x, int y);
+void	get_exit(t_game *game);
+void	draw_exit(t_game *game);
 // void	save_imgs(int img_scale, t_img *imgs, t_vars *mlx);
 // void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
 // void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);

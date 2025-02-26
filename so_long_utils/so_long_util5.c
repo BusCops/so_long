@@ -6,11 +6,20 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:58:38 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/20 17:53:58 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:01:07 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	custom_usleep()
+{
+	int	i;
+
+	i = 0;
+	while(i < SPEED)
+		i++;
+}
 
 void	fill_with_wall(t_game *game, int x, int y, t_map map)
 {
@@ -73,7 +82,7 @@ void	save_coin_image(t_game *game)
 	if (!game->coin.img.img)
 	{
 		ft_putstr(2, RED "ERROR: Diamond image failed! 💎 No "
-			"diamonds, no glory... just disappointment. 😢" RESET);
+			"diamonds, no glory... just disappointment. 😢\n" RESET);
 		free_all(game, 1);
 	}
 	game->coin.img.addr = mlx_get_data_addr(game->coin.img.img,
@@ -95,7 +104,7 @@ void	draw_coin_image(t_game *game, int k, int pos)
 	int				j;
 
 	j = 0;
-		j = j + (k / 3) * 150;
+		j = j + (k / 3) * 149;
 	in.i = 0;
 	while (in.i < 150)
 	{
@@ -148,16 +157,15 @@ int	fill_coin(t_game *game)
 	while (i < game->map.c)
 	{
 		if (game->coin.cpos[i]->exist == 1)
-			draw_coin_image(game, frame, i);
-		else if (game->coin.cpos[i]->exist == 0)
 		{
-			draw_bg(game, i);
+			draw_coin_image(game, frame, i);
+		// if (game->coin.cpos[i]->exist == 0)
+		//  	draw_bg(game, i);
+			mlx_put_image_to_window(game->mlx, game->win, game->coin.anim.img, game->coin.cpos[i]->x * 150, game->coin.cpos[i]->y * 150);
 		}
-		mlx_put_image_to_window(game->mlx, game->win, game->coin.anim.img, game->coin.cpos[i]->x * 150, game->coin.cpos[i]->y * 150);
 		i++;
 		mlx_do_sync(game->mlx);
 	}
-	usleep(80000);
 	return (0);
 }
 
@@ -179,6 +187,11 @@ void	search_coin_and_save(t_game *game, char **map)
 				game->coin.cpos[c]->y = in.i;
 				game->coin.cpos[c]->exist = 1;
 				c++;
+			}
+			if (map[in.i][in.j] == 'E')
+			{
+				game->exit.x = in.j;
+				game->exit.y = in.i;
 			}
 			in.j++;
 		}
@@ -213,6 +226,7 @@ void	get_and_put_coin(t_game *game)
 	 	&game->coin.anim.endian);
 	allocate_coin_pos(game);
 	search_coin_and_save(game, game->map.map);
+	game->cc = game->map.c;
 }
 
 void	save_player_image(t_game *game)
@@ -254,9 +268,7 @@ void	draw_player_standing(t_game *game, int k, int x, int y)
 			pixel_pl = get_pixel_from_image(game->pl.anim, in.j, in.i);
 			color = get_color(game->pl.img, (k * 150) + in.j, in.i + j);
             if (get_t(color))
-            {
                 color = *(unsigned int *)pixel_bg;
-            }
 			*(unsigned int *)pixel_pl = color;
 			in.j++;
 		}
@@ -266,9 +278,10 @@ void	draw_player_standing(t_game *game, int k, int x, int y)
 
 void	put_player(t_game *game, int frame)
 {
-	draw_player_standing(game, frame, game->pl.x_p, game->pl.y_p);
-	mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->pl.x_p * 150, game->pl.y_p * 150);
-	mlx_do_sync(game->mlx);
+	game->frame = frame;
+	draw_player_moving(game, game->plp.x, game->plp.y, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->plp.x * 150, game->plp.y * 150);
+	//mlx_do_sync(game->mlx);
 	usleep(80000);
 }
 
@@ -279,8 +292,8 @@ void	get_and_put_player(t_game *game)
 	game->pl.anim.addr = mlx_get_data_addr(game->pl.anim.img,
 	 	&game->pl.anim.b_p, &game->pl.anim.len,
 	 	&game->pl.anim.endian);
-	game->pl.x_p = game->map.yp;
-	game->pl.y_p = game->map.xp;
+	game->plp.x = game->map.yp;
+	game->plp.y = game->map.xp;
 }
 
 int	put_all(t_game *game)
@@ -289,81 +302,108 @@ int	put_all(t_game *game)
 	return (0);
 }
 
-void	draw_player_moving(t_game *game,int k, int x, int y,int p)
-{
-	t_index			in;
-	unsigned int	color;
-	char			*pixel_bg;
-	char			*pixel_pl;
-	int				j;
-
-	(void)p;
-	j = 0;
-	j = j + (k / 7) * 150;
-	in.i = 0;
-	while (in.i < 150)
-	{
-		in.j = 0;
-		while (in.j < 150)
-		{
-			pixel_bg = get_pixel_in_bg_offset(game->bg.img, x , y, in, p);
-			pixel_pl = get_pixel_from_image(game->pl.anim, in.j, in.i);
-			color = get_color(game->pl.img, (k * 150) + in.j, in.i + j);
-            if (get_t(color))
-                color = *(unsigned int *)pixel_bg;
-			*(unsigned int *)pixel_pl = color;
-			in.j++;
-		}
-		in.i++;
-	}
-}
-
 void	move_player_right(t_game *game)
 {
-	int	frame;
 	int	i;
 	int	pixel;
 
 	i = 0;
-	frame = 21;
+	game->frame = 21;
 	pixel = 15;
 	while(i < 10)
 	{
-		frame = (frame + 1) % 6 + 21;
-		draw_player_moving(game, frame, game->pl.x_p, game->pl.y_p , pixel);
-		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, ((game->pl.x_p) * 150 + pixel), game->pl.y_p * 150);
-		usleep(80000);
+		if (pixel == 75)
+			coin_founded(game, game->plp.x + 1, game->plp.y);
+		fill_coin(game);
+		game->frame = (game->frame + 1) % 6 + 21;
+		draw_player_moving(game, game->plp.x, game->plp.y , pixel);
+		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, ((game->plp.x) * 150 + pixel), game->plp.y * 150);
+		custom_usleep();
 		pixel = pixel + 15;
 		i++;
 		mlx_do_sync(game->mlx);
 	}
-	game->pl.x_p = game->pl.x_p + 1;
-	put_player(game , 12);
 }
 
 void	move_player_left(t_game *game)
 {
-	int	frame;
 	int	i;
 	int	pixel;
 
 	i = 0;
-	frame = 15;
+	game->frame = 15;
 	pixel = -15;
 	while(i < 10)
-	{
-		frame = (frame + 1) % 6 + 15;
-		draw_player_moving(game, frame, game->pl.x_p, game->pl.y_p , pixel);
-		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, ((game->pl.x_p) * 150 + pixel), game->pl.y_p * 150);
-		usleep(80000);
+	{	
+		if (pixel == -75)
+			coin_founded(game, game->plp.x - 1, game->plp.y);
+		fill_coin(game);
+		game->frame = (game->frame + 1) % 6 + 15;
+		draw_player_moving(game, game->plp.x, game->plp.y , pixel);
+		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, ((game->plp.x) * 150 + pixel), game->plp.y * 150);
+		custom_usleep();
 		pixel = pixel - 15;
 		i++;
 		mlx_do_sync(game->mlx);
 	}
-	game->pl.x_p = game->pl.x_p + -1;
-	put_player(game , 9);
+	//game->plp.x = game->plp.x + -1;
+	//put_player(game , 9);
 }
-void	draw_player_moving_up_down(t_game *game,int k, int x, int y,int p)
+
+void	move_player_down(t_game *game)
+{
+	int	i;
+	int	pixel;
+
+	i = 0;
+	game->frame = 0;
+	pixel = 15;
+	while(i < 10)
+	{
+		if (pixel == 45)
+			coin_founded(game, game->plp.x, game->plp.y + 1);
+		fill_coin(game);
+		game->frame = (game->frame + 1) % 6;
+		draw_player_moving(game, game->plp.x , game->plp.y, pixel * game->bg.img.len / 4);
+		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->plp.x * 150, (game->plp.y * 150) + pixel);
+		//fill_coin(game);
+		custom_usleep();
+		pixel = pixel + 15;
+		i++;
+		mlx_do_sync(game->mlx);
+	}
+	//draw_player_moving_up_down(game, 3, game->plp.x, game->plp.y , pixel);
+	//mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->plp.x * 150, (game->plp.y * 150) + pixel - 14);
+	//game->plp.y = game->plp.y + 1;
+	//put_player(game , 3);
+}
+
+void	move_player_up(t_game *game)
+{
+	int	i;
+	int	pixel;
+
+	i = 0;
+	game->frame = 8;
+	pixel = -15;
+	while(i < 10)
+	{
+		if (pixel == 30)
+			coin_founded(game, game->plp.x, game->plp.y - 1);
+		fill_coin(game);
+		game->frame = (game->frame + 1) % 6 + 8;
+		draw_player_moving(game, game->plp.x, game->plp.y , pixel * game->bg.img.len / 4);
+		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->plp.x * 150, (game->plp.y * 150) + pixel);
+		custom_usleep();
+		pixel = pixel - 15;
+		i++;
+		mlx_do_sync(game->mlx);
+	}
+	//game->plp.y = game->plp.y - 1;
+	//put_player(game , 6);
+}
+
+void	draw_player_moving(t_game *game, int x, int y,int p)
 {
 	t_index			in;
 	unsigned int	color;
@@ -373,16 +413,16 @@ void	draw_player_moving_up_down(t_game *game,int k, int x, int y,int p)
 
 	(void)p;
 	j = 0;
-	j = j + (k / 7) * 150;
+	j = j + (game->frame / 7) * 149;
 	in.i = 0;
 	while (in.i < 150)
 	{
 		in.j = 0;
 		while (in.j < 150)
 		{
-			pixel_bg = get_pixel_in_bg_offset_u(game->bg.img, x , y, in, p * game->bg.img.len);
+			pixel_bg = get_pixel(game->bg.img, (150 * x) + p + in.j , (y * 150) + in.i);
 			pixel_pl = get_pixel_from_image(game->pl.anim, in.j, in.i);
-			color = get_color(game->pl.img, (k * 150) + in.j, in.i + j);
+			color = get_color(game->pl.img, (game->frame * 150) + in.j, in.i + j);
             if (get_t(color))
                 color = *(unsigned int *)pixel_bg;
 			*(unsigned int *)pixel_pl = color;
@@ -392,81 +432,93 @@ void	draw_player_moving_up_down(t_game *game,int k, int x, int y,int p)
 	}
 }
 
-void	move_player_down(t_game *game)
+void	coin_founded(t_game *game, int x, int y)
 {
-	int	frame;
 	int	i;
-	int	pixel;
 
 	i = 0;
-	frame = 0;
-	pixel = 15;
-	while(i < 10)
+	while (i < game->map.c)
 	{
-		frame = (frame + 1) % 6;
-		draw_player_moving_up_down(game, frame, game->pl.x_p, game->pl.y_p , pixel);
-		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->pl.x_p * 150, (game->pl.y_p * 150) + pixel);
-		usleep(80000);
-		pixel = pixel + 15;
+		if (game->coin.cpos[i]->x == x && game->coin.cpos[i]->y == y && game->coin.cpos[i]->exist == 1)
+		{
+			draw_bg(game, i);
+			mlx_put_image_to_window(game->mlx, game->win, game->coin.anim.img, game->coin.cpos[i]->x * 150, game->coin.cpos[i]->y * 150);
+			game->coin.cpos[i]->exist = 0;
+			mlx_do_sync(game->mlx);
+			game->cc--;
+		}
 		i++;
-		mlx_do_sync(game->mlx);
 	}
-	//draw_player_moving_up_down(game, 3, game->pl.x_p, game->pl.y_p , pixel);
-	//mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->pl.x_p * 150, (game->pl.y_p * 150) + pixel - 14);
-	game->pl.y_p = game->pl.y_p + 1;
-	put_player(game , 3);
 }
 
-void	move_player_up(t_game *game)
+void	save_exit_image(t_game *game)
 {
-	int	frame;
-	int	i;
-	int	pixel;
 
-	i = 0;
-	frame = 8;
-	pixel = -15;
-	while(i < 10)
-	{
-		frame = (frame + 1) % 6 + 8;
-		draw_player_moving_up_down(game, frame, game->pl.x_p, game->pl.y_p , pixel);
-		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img, game->pl.x_p * 150, (game->pl.y_p * 150) + pixel);
-		usleep(80000);
-		pixel = pixel - 15;
-		i++;
-		mlx_do_sync(game->mlx);
-	}
-	game->pl.y_p = game->pl.y_p - 1;
-	put_player(game , 6);
-}
-
-/*void	save_player_image(t_game *game)
-{
 	int	img_x;
 	int	img_y;
 
-	img_x = 450;
-	img_y = 150;
-	game->en.img.img = mlx_xpm_file_to_image
-		(game->mlx, "texture/enemy/standing.xpm", &img_x, &img_y);
-	if (!game->en.img.img)
+	game->exit.img.img = mlx_xpm_file_to_image
+		(game->mlx, "texture/exit/exit.xpm", &img_x, &img_y);
+	if (!game->exit.img.img)
 	{
-		ft_putstr(2,RED "Error: Player texture is missing! Did he rage quit? 🤔" RESET);
+		ft_putstr(2, RED "ERROR: Well, the exit just decided to disappear. 😢\n" RESET);
 		free_all(game, 1);
 	}
-	game->en.img.addr = mlx_get_data_addr(game->en.img.img,
-			&game->en.img.b_p, &game->en.img.len,
-			&game->en.img.endian);
-}*/
+	game->exit.img.addr = mlx_get_data_addr(game->exit.img.img,
+			&game->exit.img.b_p, &game->exit.img.len,
+			&game->exit.img.endian);
+}
 
-/*void	save_enemy_image(t_game *game)
+void	get_exit(t_game *game)
 {
-	get_enemy_position(game);
-	save_enemy_image(game);
-	game->en.anim.img = mlx_new_image(game->mlx, 150, 150);
-	game->en.anim.addr = mlx_get_data_addr(game->en.anim.img,
-	 	&game->en.anim.b_p, &game->en.anim.len,
-	 	&game->en.anim.endian);
-	game->pl.x_p = game->map.yp;
-	game->pl.y_p = game->map.xp;
-}*/
+	save_exit_image(game);
+	game->exit.anim.img = mlx_new_image(game->mlx, 150, 150);
+	game->exit.anim.addr = mlx_get_data_addr(game->exit.anim.img,
+	 	&game->exit.anim.b_p, &game->exit.anim.len,
+	 	&game->exit.anim.endian);
+}
+
+void	draw_exit_helper(t_game *game, int x, int y)
+{
+	t_index			in;
+	unsigned int	color;
+	char			*pixel_bg;
+	char			*pixel_e;
+	int				j;
+
+	j = (game->exit.frame / 4) * 149;
+	in.i = 0;
+	while (in.i < 150)
+	{
+		in.j = 0;
+		while (in.j < 150)
+		{
+			pixel_bg = get_pixel(game->bg.img, (150 * x) + in.j , (y * 150) + in.i);
+			pixel_e = get_pixel_from_image(game->exit.anim, in.j, in.i);
+			color = get_color(game->exit.img, (game->exit.frame * 150) + in.j, in.i + j);
+            if (get_t(color))
+                color = *(unsigned int *)pixel_bg;
+			*(unsigned int *)pixel_e = color;
+			in.j++;
+		}
+		in.i++;
+	}
+}
+
+void	draw_exit(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	game->exit.frame = 0;
+	while(i < 22)
+	{
+		game->exit.frame++;
+		draw_exit_helper(game, game->exit.x, game->exit.y);
+		mlx_put_image_to_window(game->mlx, game->win, game->exit.anim.img, game->exit.x * 150, game->exit.y * 150);
+		custom_usleep();
+		i++;
+		mlx_do_sync(game->mlx);
+	}
+	game->cc = 20;
+}

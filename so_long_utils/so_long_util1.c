@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:49:41 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/18 18:02:11 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:34:53 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ void	save_walls_img(t_game *game)
 	int	img_x;
 	int	img_y;
 
-	img_x = 450;
-	img_y = 150;
 	game->walls.img.img = mlx_xpm_file_to_image
 		(game->mlx, "texture/walls/walls.xpm", &img_x, &img_y);
 	if (!game->walls.img.img)
 	{
 		ft_putstr(2, RED "ERROR: Wall image failed! 🚧 Now it's"
-			" just invisible walls... good luck! 🫥" RESET);
+			" just invisible walls... good luck! 🫥\n" RESET);
 		free_all(game, 1);
 	}
 	game->walls.img.addr = mlx_get_data_addr(game->walls.img.img,
@@ -37,14 +35,12 @@ void	save_ground_img(t_game *game)
 	int	img_x;
 	int	img_y;
 
-	img_x = 450;
-	img_y = 150;
 	game->ground.img.img = mlx_xpm_file_to_image
 		(game->mlx, "texture/ground/ground.xpm", &img_x, &img_y);
 	if (!game->ground.img.img)
 	{
 		ft_putstr(2, RED "ERROR: Ground image failed! 🌍 Guess you’re"
-			" floating in the void now... 🕳️" RESET);
+			" floating in the void now... 🕳️\n" RESET);
 		free_all(game, 1);
 	}
 	game->ground.img.addr = mlx_get_data_addr(game->ground.img.img,
@@ -58,7 +54,7 @@ void	creat_image_and_fill(t_game *game)
 		(game->mlx, game->map.col * 150, game->map.row * 150);
 	if (!game->bg.img.img)
 	{
-		ft_putstr(2, RED "Error: Error creating background image" RESET);
+		ft_putstr(2, RED "Error: Error creating background image\n" RESET);
 		free_all(game, 1);
 	}
 	game->bg.img.addr = mlx_get_data_addr(game->bg.img.img,
