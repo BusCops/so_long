@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:51:53 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:02:42 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:41:30 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	draw_exit_helper(t_game *game, int x, int y)
 		while (in.j < 150)
 		{
 			pixel_bg = get_pixel(game->bg.img, (150 * x) + in.j , (y * 150) + in.i);
-			pixel_e = get_pixel_from_image(game->exit.anim, in.j, in.i);
+			pixel_e = get_pixel(game->exit.anim, in.j, in.i);
 			color = get_color(game->exit.img, (game->exit.frame * 150) + in.j, in.i + j);
             if (get_t(color))
                 color = *(unsigned int *)pixel_bg;

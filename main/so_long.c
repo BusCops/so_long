@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/25 16:01:31 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:19:03 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	main(int ac, char **av)
 		free_all(&game, 1);
 	}
 	lets_run_win_and_put_env(&game);
-	game.moving[0] = game.moving[1] = game.moving[2] = game.moving[3] = 0;
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
     mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);

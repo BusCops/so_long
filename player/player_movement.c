@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_movement1.c                                 :+:      :+:    :+:   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:03:50 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 15:54:49 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:40:41 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_player_moving(t_game *game, int x, int y, int p)
 		{
 			pixel_bg = get_pixel(game->bg.img, (150 * x)
 					+ p + in.j, (y * 150) + in.i);
-			pixel_pl = get_pixel_from_image(game->pl.anim, in.j, in.i);
+			pixel_pl = get_pixel(game->pl.anim, in.j, in.i);
 			color = get_color(game->pl.img,
 					(game->frame * 150) + in.j, in.i + j);
 			if (get_t(color))

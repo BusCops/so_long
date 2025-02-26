@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:09:51 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 17:28:57 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:41:04 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	draw_coin_image(t_game *game, int k, int pos)
 		{
 			pixel_bg = get_pixel_in_bg(game->bg.img, game->coin.cpos[pos]->x,
 					game->coin.cpos[pos]->y, in);
-			pixel_cn = get_pixel_from_image(game->coin.anim, in.j, in.i);
+			pixel_cn = get_pixel(game->coin.anim, in.j, in.i);
 			color = get_color(game->coin.img, (k * 150) + in.j, in.i + j);
 			if (get_t(color))
 				color = *(unsigned int *)pixel_bg;

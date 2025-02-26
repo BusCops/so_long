@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:03:35 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:36:36 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,12 @@ void	get_exit(t_game *game);
 void	draw_exit(t_game *game);
 int	get_t(int trgb);
 void	finish_game(t_game *game, int x, int y);
+void	moves_counter(t_game *game);
+//////////////UTILS/////////////
 
 
+void			free_coin_positions(t_game *game);
+void			reset_all(t_game *game);
 
 //////////////WALLS//////////////
 
@@ -220,7 +224,7 @@ void			move_player_down(t_game *game);
 void			move_player_up(t_game *game);
 void			move_player_right(t_game *game);
 
-/////////////EXIT////////////
+//////////////EXIT//////////////
 
 void			save_exit_image(t_game *game);
 void			get_exit(t_game *game);
