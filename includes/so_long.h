@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/25 18:35:28 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:03:35 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #define KEY_LEFT 65361
 #define KEY_DOWN 65364
 #define KEY_UP 65362
-#define SPEED 45000000
+#define SPEED 40000000
 
 # include <unistd.h>
 # include <stdio.h>
@@ -145,6 +145,7 @@ typedef struct s_game
 	int				frame;
 	int				cc;
 	t_exit			exit;
+	int				finish;
 }	t_game;
 
 void			reset_all(t_game *game);
@@ -168,28 +169,63 @@ char			*get_pixel_from_image(t_img img, int x, int y);
 int				fill_coin(t_game *game);
 int				put_all(t_game *game);
 void			get_and_put_player(t_game *game);
-void			put_player(t_game *game, int frame);
+
 void			move_player_right(t_game *game);
 char			*get_pixel_in_bg_offset(t_img img, int x, int y, t_index in, int ofs);
-void			move_player_left(t_game *game);
-void			move_player_down(t_game *game);
+
 char			*get_pixel_in_bg_offset_u(t_img img, int x, int y, t_index in, int ofs);
-void			move_player_up(t_game *game);
 int 			key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
 int 			game_loop(t_game *game);
 int 			update_game(int keycode, t_game *game);
 char			*get_pixel(t_img img, int x, int y);
-void			draw_player_moving(t_game *game, int x, int y,int p);
-
+void	find_exit(t_game *game, char **map);
 void	custom_usleep();
-void	coin_founded(t_game *game, int x, int y);
 void	get_exit(t_game *game);
 void	draw_exit(t_game *game);
-// void	save_imgs(int img_scale, t_img *imgs, t_vars *mlx);
-// void	start_puting_walls(t_map *map, t_img *imgs, void *mlx, void *win);
-// void	start_puting_ground(t_map *map, t_img *imgs, void *mlx, void *win);
-// int		key_event(int keycode, t_vars *mlxvar);
-// void	mlx_error(t_game *game, t_vars *mlxvar);
+int	get_t(int trgb);
+void	finish_game(t_game *game, int x, int y);
+
+
+
+//////////////WALLS//////////////
+
+void			save_walls_img(t_game *game);
+void			save_ground_img(t_game *game);
+void			creat_image_and_fill(t_game *game);
+void			fill_image(t_game *game, char **map);
+int				wich_wall(int x, int y, int col, int row);
+void			fill_with_wall(t_game *game, int x, int y, t_map map);
+void			fill_with_ground(t_game *game, int x, int y, int c);
+void			draw_bg(t_game *game, int pos);
+
+//////////////COIN//////////////
+
+void			save_coin_image(t_game *game);
+void			get_and_put_coin(t_game *game);
+void			allocate_coin_pos(t_game *game);
+void			search_coin_and_save(t_game *game, char **map);
+void			draw_coin_image(t_game *game, int k, int pos);
+int				fill_coin(t_game *game);
+void			coin_founded(t_game *game, int x, int y);
+
+//////////////PLAYER//////////////
+
+void			save_player_image(t_game *game);
+void			get_and_put_player(t_game *game);
+void			draw_player_moving(t_game *game, int x, int y,int p);
+void			put_player(t_game *game, int frame);
+void			move_player_left(t_game *game);
+void			move_player_down(t_game *game);
+void			move_player_up(t_game *game);
+void			move_player_right(t_game *game);
+
+/////////////EXIT////////////
+
+void			save_exit_image(t_game *game);
+void			get_exit(t_game *game);
+void			find_exit(t_game *game, char **map);
+void			draw_exit_helper(t_game *game, int x, int y);
+void			draw_exit(t_game *game);
 
 #endif

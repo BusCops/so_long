@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:08:24 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/25 16:04:33 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:01:58 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	reset_all(t_game *game)
 {
 	game->count = 0;
+	game->finish = 0;
 	game->walls.img.img = NULL;
 	game->bg.img.img = NULL;
 	game->ground.img.img = NULL;

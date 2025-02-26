@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:54:59 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/13 17:01:45 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:47:44 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_map	args_checker(int ac, char **av)
 {
 	char	**s;
 	t_map	map;
-	
+
 	check_args_number1(ac);
 	check_args_number2(ac);
 	check_if_valid_extension(av);
