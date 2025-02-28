@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:37:31 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 17:26:00 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:43:59 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	save_player_image(t_game *game)
 	int	img_x;
 	int	img_y;
 
-	img_x = 450;
-	img_y = 150;
 	game->pl.img.img = mlx_xpm_file_to_image
 		(game->mlx, "texture/player/player.xpm", &img_x, &img_y);
 	if (!game->pl.img.img)

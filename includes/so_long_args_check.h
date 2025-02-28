@@ -6,13 +6,12 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:11:21 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/13 16:14:14 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:57:01 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_ARGS_CHECK_H
 # define SO_LONG_ARGS_CHECK_H
-
 
 typedef struct s_list
 {

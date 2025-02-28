@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_util4.c                                    :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/17 13:45:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:40:12 by abenzaho         ###   ########.fr       */
+/*   Created: 2025/02/11 16:49:41 by abenzaho          #+#    #+#             */
+/*   Updated: 2025/02/28 16:46:10 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	custom_usleep(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < SPEED)
+		i++;
+}
+
+int	get_t(int trgb)
+{
+	return ((trgb >> 24) & 0xFF);
+}
 
 char	*get_pixel_in_bg(t_img img, int x, int y, t_index in)
 {

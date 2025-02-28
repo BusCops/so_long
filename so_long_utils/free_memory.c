@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:08:24 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:19:47 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:03:23 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	reset_all(t_game *game)
 	game->pl.img.img = NULL;
 	game->exit.img.img = NULL;
 	game->exit.anim.img = NULL;
+	game->counter.img.img = NULL ;
+	game->counter.tmp.img = NULL ;
+	game->enemy.img.img = NULL;
+	game->enemy.anim.img = NULL;
 	game->mlx = NULL;
 	game->win = NULL;
 }
@@ -42,6 +46,10 @@ void	free_all(t_game *game, int exit_stat)
 	mlx_destroy_image(game->mlx, game->bg.img.img);
 	mlx_destroy_image(game->mlx, game->coin.img.img);
 	mlx_destroy_image(game->mlx, game->coin.anim.img);
+	mlx_destroy_image(game->mlx, game->counter.tmp.img);
+	mlx_destroy_image(game->mlx, game->counter.img.img);
+	mlx_destroy_image(game->mlx, game->enemy.anim.img);
+	mlx_destroy_image(game->mlx, game->enemy.img.img);
 	free_coin_positions(game);
 	mlx_destroy_image(game->mlx, game->pl.img.img);
 	mlx_destroy_image(game->mlx, game->pl.anim.img);

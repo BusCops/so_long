@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:36:36 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:53:45 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # define RED "\033[1;31m"
 # define YELLOW "\033[1;33m"
 # define RESET "\033[0m"
-#define KEY_ESC 65307
-#define KEY_RIGHT 65363
-#define KEY_LEFT 65361
-#define KEY_DOWN 65364
-#define KEY_UP 65362
-#define SPEED 40000000
+# define KEY_ESC 65307
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define KEY_DOWN 65364
+# define KEY_UP 65362
+# define SPEED 40000000
 
 # include <unistd.h>
 # include <stdio.h>
@@ -31,27 +31,6 @@
 # include "../ft_get_next_line/get_next_line.h"
 # include "../includes/so_long_args_check.h"
 # include "../includes/helper_function.h"
-
-/*typedef struct t_img
-{
-	void	**walls;
-	void	*player;
-	void	**ground;
-	void	*enemy;
-	void	*exit;
-	void	*open;
-}	t_img;
-
-typedef struct s_game
-{
-	void	*walls;
-	void	*player;
-	void	*ground;
-	void	*enemy;
-	void	*exit;
-	void	*open;
-}	t_game;
-*/
 
 typedef struct s_cpos
 {
@@ -66,7 +45,6 @@ typedef struct s_index
 	int	j;
 }	t_index;
 
-
 typedef struct s_img
 {
 	void	*img;
@@ -76,19 +54,19 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct	s_walls
+typedef struct s_walls
 {
-	t_img img;
+	t_img	img;
 }	t_walls;	
 
-typedef struct	s_ground
+typedef struct s_ground
 {
-	t_img img;
+	t_img	img;
 }	t_ground;
 
 typedef struct s_background
 {
-	t_img img;
+	t_img	img;
 }	t_background;
 
 typedef struct s_coin
@@ -108,8 +86,7 @@ typedef struct s_enemy
 {
 	t_img	img;
 	t_img	anim;
-	int		x_e;
-	int		y_e;
+
 }	t_enemy;
 
 typedef struct s_pos
@@ -127,6 +104,12 @@ typedef struct s_exit
 	int		y;
 }	t_exit;
 
+typedef struct s_counter
+{
+	t_img	img;
+	t_img	tmp;
+}	t_counter;
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -137,7 +120,9 @@ typedef struct s_game
 	t_player		pl;
 	t_enemy			en;
 	t_background	bg;
+	t_enemy			enemy;
 	t_map			map;
+	t_counter		counter;
 	int				moving[4];
 	int				count;
 	t_pos			enp;
@@ -164,34 +149,41 @@ void			fill_with_ground(t_game *game, int x, int y, int c);
 void			save_coin_image(t_game *game);
 void			get_and_put_coin(t_game *game);
 void			put_coin(t_game *game, char **map);
-void 			free_coin_positions(t_game *game);
+void			free_coin_positions(t_game *game);
 char			*get_pixel_from_image(t_img img, int x, int y);
 int				fill_coin(t_game *game);
 int				put_all(t_game *game);
 void			get_and_put_player(t_game *game);
-
 void			move_player_right(t_game *game);
-char			*get_pixel_in_bg_offset(t_img img, int x, int y, t_index in, int ofs);
-
-char			*get_pixel_in_bg_offset_u(t_img img, int x, int y, t_index in, int ofs);
-int 			key_press(int keycode, t_game *game);
+int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
-int 			game_loop(t_game *game);
-int 			update_game(int keycode, t_game *game);
+int				game_loop(t_game *game);
+int				update_game(int keycode, t_game *game);
+
+//////////////TOOLS/////////////
+
+void			custom_usleep(void);
+int				get_t(int trgb);
 char			*get_pixel(t_img img, int x, int y);
-void	find_exit(t_game *game, char **map);
-void	custom_usleep();
-void	get_exit(t_game *game);
-void	draw_exit(t_game *game);
-int	get_t(int trgb);
-void	finish_game(t_game *game, int x, int y);
-void	moves_counter(t_game *game);
+
+//////////////COUNTER////////////
+
+void			save_counter(t_game *game);
+void			put_counter(t_game *game);
+void			moves_counter(t_game *game);
+void			draw_counter(t_game *game, int frame);
+
+//////////////ENEMY/////////////
+
+void			save_enemy_image(t_game *game);
+void			get_enemy(t_game *game);
+void			draw_enemy(t_game *game, int x, int y);
+void			put_enemy(t_game *game);
+void			check_for_enemy(t_game *game, int x, int y);
+
 //////////////UTILS/////////////
-
-
 void			free_coin_positions(t_game *game);
 void			reset_all(t_game *game);
-
 //////////////WALLS//////////////
 
 void			save_walls_img(t_game *game);
@@ -217,7 +209,7 @@ void			coin_founded(t_game *game, int x, int y);
 
 void			save_player_image(t_game *game);
 void			get_and_put_player(t_game *game);
-void			draw_player_moving(t_game *game, int x, int y,int p);
+void			draw_player_moving(t_game *game, int x, int y, int p);
 void			put_player(t_game *game, int frame);
 void			move_player_left(t_game *game);
 void			move_player_down(t_game *game);
@@ -231,5 +223,6 @@ void			get_exit(t_game *game);
 void			find_exit(t_game *game, char **map);
 void			draw_exit_helper(t_game *game, int x, int y);
 void			draw_exit(t_game *game);
+void			finish_game(t_game *game, int x, int y);
 
 #endif
