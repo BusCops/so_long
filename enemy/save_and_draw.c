@@ -6,11 +6,32 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:41:33 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/28 16:43:12 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:16:26 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	draw_bg_n(t_game *game, int x, int y)
+{
+	t_index			in;
+	char			*pixel_bg;
+	char			*pixel;
+
+	in.i = 0;
+	while (in.i < 150)
+	{
+		in.j = 0;
+		while (in.j < 150)
+		{
+			pixel_bg = get_pixel_in_bg(game->bg.img, x, y, in);
+			pixel = get_pixel(game->bg.tmp, in.j, in.i);
+			*(unsigned int *)pixel = *(unsigned int *)pixel_bg;
+			in.j++;
+		}
+		in.i++;
+	}
+}
 
 void	save_enemy_image(t_game *game)
 {
@@ -31,6 +52,9 @@ void	save_enemy_image(t_game *game)
 
 void	get_enemy(t_game *game)
 {
+	enemy_count(game);
+	allocate_en_pos(game);
+	search_enemy_and_save(game, game->map.map);
 	save_enemy_image(game);
 	game->enemy.anim.img = mlx_new_image(game->mlx, 150, 150);
 	game->enemy.anim.addr = mlx_get_data_addr(game->enemy.anim.img,
@@ -38,60 +62,28 @@ void	get_enemy(t_game *game)
 			&game->enemy.anim.endian);
 }
 
-void	put_enemy(t_game *game)
+void	move_en_right(t_game *game, int x, int y, int i)
 {
-	t_index	in;
-
-	in.i = 0;
-	while (game->map.map[in.i])
-	{
-		in.j = 0;
-		while (game->map.map[in.i][in.j])
-		{
-			if (game->map.map[in.i][in.j] == 'W')
-			{
-				draw_enemy(game, in.j, in.i);
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->enemy.anim.img,
-					150 * in.j, in.i * 150);
-			}
-			in.j++;
-		}
-		in.i++;
-	}
+	draw_bg_n(game, x, y);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->bg.tmp.img, x * 150, y * 150);
+	mlx_do_sync(game->mlx);
+	draw_enemy(game, x + 1, y, 0);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->enemy.anim.img, (x + 1) * 150, y * 150);
+	mlx_do_sync(game->mlx);
+	game->enemy.enp[i]->x++;
 }
 
-void	draw_enemy(t_game *game, int x, int y)
+void	move_en_left(t_game *game, int x, int y, int i)
 {
-	t_index			in;
-	unsigned int	color;
-	char			*pixel_bg;
-	char			*pixel_en;
-
-	in.i = 0;
-	while (in.i < 150)
-	{
-		in.j = 0;
-		while (in.j < 150)
-		{
-			pixel_bg = get_pixel(game->bg.img, (150 * x)
-					+ in.j, (y * 150) + in.i);
-			pixel_en = get_pixel(game->enemy.anim, in.j, in.i);
-			color = get_color(game->enemy.img, in.j, in.i);
-			if (get_t(color))
-				color = *(unsigned int *)pixel_bg;
-			*(unsigned int *)pixel_en = color;
-			in.j++;
-		}
-		in.i++;
-	}
-}
-
-void	check_for_enemy(t_game *game, int x, int y)
-{
-	if (game->map.map[y][x] == 'W')
-	{
-		ft_putstr(1, "You Lost !\n");
-		free_all(game, 0);
-	}
+	draw_bg_n(game, x, y);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->bg.tmp.img, x * 150, y * 150);
+	mlx_do_sync(game->mlx);
+	draw_enemy(game, x - 1, y, 0);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->enemy.anim.img, (x - 1) * 150, y * 150);
+	mlx_do_sync(game->mlx);
+	game->enemy.enp[i]->x--;
 }

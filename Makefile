@@ -17,14 +17,14 @@ player/player_movement.c player/player_image.c \
 coin/draw_coin.c coin/save_coin.c \
 background/save_bg_image.c background/draw_bg.c \
 exit/save_exit.c exit/draw_exit.c \
-enemy/save_and_draw.c
+enemy/save_and_draw.c enemy/enemy_utils.c enemy/draw.c
 
 OBJS = ${SRCS:.c=.o}
 
 all: ${NAME}
 
-${NAME} : ${SRCS}
-	${CC} ${CFLAGS} ${SRCS} ${MLXFLAGS} -o ${NAME}
+${NAME} : ${OBJS}
+	${CC} ${CFLAGS} ${OBJS} ${MLXFLAGS} -o ${NAME}
 
 clean :
 	${RM} ${OBJS}

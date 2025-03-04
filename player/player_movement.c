@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:03:50 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/27 09:54:54 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:59:07 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	move_player_right(t_game *game)
 		draw_player_moving(game, game->plp.x, game->plp.y, pixel);
 		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img,
 			((game->plp.x) * 150 + pixel), game->plp.y * 150);
+		move_enemy(game);
+		check_for_enemy(game, game->plp.x, game->plp.y);
 		custom_usleep();
 		pixel = pixel + 15;
 		i++;
@@ -82,6 +84,8 @@ void	move_player_left(t_game *game)
 		draw_player_moving(game, game->plp.x, game->plp.y, pixel);
 		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img,
 			((game->plp.x) * 150 + pixel), game->plp.y * 150);
+		move_enemy(game);
+		check_for_enemy(game, game->plp.x, game->plp.y);
 		custom_usleep();
 		pixel = pixel - 15;
 		i++;
@@ -107,6 +111,8 @@ void	move_player_down(t_game *game)
 			pixel * game->bg.img.len / 4);
 		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img,
 			game->plp.x * 150, (game->plp.y * 150) + pixel);
+		move_enemy(game);
+		check_for_enemy(game, game->plp.x, game->plp.y);
 		custom_usleep();
 		pixel = pixel + 15;
 		i++;
@@ -132,6 +138,8 @@ void	move_player_up(t_game *game)
 			pixel * game->bg.img.len / 4);
 		mlx_put_image_to_window(game->mlx, game->win, game->pl.anim.img,
 			game->plp.x * 150, (game->plp.y * 150) + pixel);
+		move_enemy(game);
+		check_for_enemy(game, game->plp.x, game->plp.y);
 		custom_usleep();
 		pixel = pixel - 15;
 		i++;

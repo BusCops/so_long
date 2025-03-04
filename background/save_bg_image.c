@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:39:13 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/26 17:47:12 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:25:49 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	creat_image_and_fill(t_game *game)
 {
 	game->bg.img.img = mlx_new_image
 		(game->mlx, game->map.col * 150, game->map.row * 150);
+	game->bg.tmp.img = mlx_new_image(game->mlx, 150, 150);
+	game->bg.tmp.addr = mlx_get_data_addr(game->bg.tmp.img,
+			&game->bg.tmp.b_p, &game->bg.tmp.len, &game->bg.tmp.endian);
 	if (!game->bg.img.img)
 	{
 		ft_putstr(2, RED "Error: Error creating background image\n" RESET);

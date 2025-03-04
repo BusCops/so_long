@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:05:22 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/28 16:23:31 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:54:58 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	game_loop(t_game *game)
 		up_down(game);
 	else
 	{
+		check_for_enemy(game, game->plp.x, game->plp.y);
+		move_enemy(game);
 		fill_coin(game);
 		custom_usleep();
 	}

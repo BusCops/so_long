@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:50:28 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/28 16:53:45 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:24:53 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ typedef struct s_cpos
 	int	exist;
 }	t_cpos;
 
+typedef struct s_enp
+{
+	int	x;
+	int	y;
+	int	y_n;
+	int	x_n;
+	int	move;
+	int	fr;
+}	t_enp;
+
 typedef struct s_index
 {
 	int	i;
@@ -67,6 +77,7 @@ typedef struct s_ground
 typedef struct s_background
 {
 	t_img	img;
+	t_img	tmp;
 }	t_background;
 
 typedef struct s_coin
@@ -86,6 +97,10 @@ typedef struct s_enemy
 {
 	t_img	img;
 	t_img	anim;
+	t_enp	**enp;
+	int		e;
+	int		t;
+	int		fr;
 
 }	t_enemy;
 
@@ -125,7 +140,6 @@ typedef struct s_game
 	t_counter		counter;
 	int				moving[4];
 	int				count;
-	t_pos			enp;
 	t_pos			plp;
 	int				frame;
 	int				cc;
@@ -175,11 +189,20 @@ void			draw_counter(t_game *game, int frame);
 
 //////////////ENEMY/////////////
 
+void			enemy_count(t_game *game);
+void			allocate_en_pos(t_game *game);
+void			search_enemy_and_save(t_game *game, char **map);
 void			save_enemy_image(t_game *game);
 void			get_enemy(t_game *game);
-void			draw_enemy(t_game *game, int x, int y);
+void			draw_enemy(t_game *game, int x, int y, int p);
 void			put_enemy(t_game *game);
 void			check_for_enemy(t_game *game, int x, int y);
+void			move_enemy(t_game *game);
+void			move_en_right(t_game *game, int x, int y, int i);
+void			move_en_left(t_game *game, int x, int y, int i);
+void			check_move(t_game *game, int x, int y, int i);
+void			draw_animation_en(t_game *game, int i);
+void			free_enemy_positions(t_game *game);
 
 //////////////UTILS/////////////
 void			free_coin_positions(t_game *game);

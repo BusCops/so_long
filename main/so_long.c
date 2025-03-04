@@ -6,7 +6,7 @@
 /*   By: abenzaho <abenzaho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:48:45 by abenzaho          #+#    #+#             */
-/*   Updated: 2025/02/28 16:47:09 by abenzaho         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:26:48 by abenzaho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int ac, char **av)
 
 	game.map = args_checker(ac, av);
 	reset_all(&game);
+	game.count = 0;
+	game.finish = 0;
 	game.mlx = mlx_init();
 	if (!game.mlx)
 	{
